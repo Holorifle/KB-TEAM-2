@@ -1342,25 +1342,6 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>21</x>
-      <y>28</y>
-      <width>91</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>D2Coding</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Receved Data</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1368,7 +1349,7 @@
      <x>0</x>
      <y>0</y>
      <width>458</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
