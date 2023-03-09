@@ -8,7 +8,7 @@
 
 #include <QHostAddress>
 #include <QNetworkInterface>
-#include <QDebug>	// 디버그 출력용
+#include <QDebug>               // 디버그 출력용
 
 /*#include <QHostAddress>
 #include <QImage>
@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QString str = QString::number(gPort);
     ui->lineEdit->setText(str);
 
-///    _server.listen(QHostAddress::Any, gPort);
     connect(&_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
 
 //    m_serial(new QSerialPort(this));
@@ -110,7 +109,6 @@ void MainWindow::on_pushButton_clicked()
 
         gPort = ui->lineEdit->text().toInt();
         _server.listen(QHostAddress::Any, gPort);
-//        connect(&_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
 
         isTCP  = true;
     }
@@ -128,13 +126,16 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_10_clicked()
 {
-    if(ui->checkBox_4->isChecked()){
-        QString str = ui->lineEdit_7->text();
+    QString str;
+    QTcpSocket *socket    = _server.nextPendingConnection();
+
+    str = ui->lineEdit_7->text();
+    ui->textBrowser_5->insertPlainText(str);
+
+    for (QTcpSocket* socket : _sockets) {
+        socket->write(str.toUtf8());
+        qDebug() << "socket->write 함수를 사용 하였어요\n";
     }
-    else{
-//        QString str = ui->textEdit->t
-    }
-    socket->write(str);
 }
 
 ////////////////////////////////////////////////////////////
@@ -245,4 +246,3 @@ void Client::on_pushButton_clicked()
             cnt++;
     }
 }*/
-
