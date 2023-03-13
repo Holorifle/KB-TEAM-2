@@ -1,5 +1,5 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QWidget>
 #include <QSerialPort>
@@ -33,4 +33,4 @@ private:
     QString code;
     int codeSize;
 };
-#endif // WIDGET_H
+#endif // MAINWINDOW_H
