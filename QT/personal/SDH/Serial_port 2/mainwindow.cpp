@@ -7,13 +7,13 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Disable maximizing
+
     setFixedSize(width(), height());
 
-    // Adding title for widget
+
     QWidget::setWindowTitle("Serial Port Example");
 
-    // Ports
+
     QList<QSerialPortInfo> ports = info.availablePorts();
     QList<QString> stringPorts;
     for(int i = 0 ; i < ports.size() ; i++){
@@ -21,8 +21,8 @@ Widget::Widget(QWidget *parent)
     }
     ui->comboBox->addItems(stringPorts);
 
-    // Baud Rate Ratios
-    QList<qint32> baudRates = info.standardBaudRates(); // What baudrates does my computer support ?
+
+    QList<qint32> baudRates = info.standardBaudRates();
     QList<QString> stringBaudRates;
     for(int i = 0 ; i < baudRates.size() ; i++){
         stringBaudRates.append(QString::number(baudRates.at(i)));
@@ -141,14 +141,7 @@ void Widget::on_pushButton_2_clicked()
 
 }
 
-/*
-During process of making this program, i encountered a problem.
-Library of QSerialPort does not guarantee that received message comes at once.It mostly comes part by part.
-Sometimes it comes completely.But it is not guarantee.I tried to solve this issue by giving message a code.
-I stored every received message in buffer. Whenever i store message in my buffer,i searched my code in buffer.
-If it is found,i display the part of the message until the code. And i remove that message from buffer.
-If it is not found i keep storing received message in buffer.
-*/
+
 
 
 void Widget::receiveMessage()
@@ -159,7 +152,7 @@ void Widget::receiveMessage()
     int index = buffer.indexOf(code);
     if(index != -1){
        QString message = buffer.mid(0,index);
-       ui->textBrowser->setTextColor(Qt::blue); // Receieved message's color is blue.
+       ui->textBrowser->setTextColor(Qt::blue);
        ui->textBrowser->append(message);
        buffer.remove(0,index+codeSize);
     }
@@ -169,7 +162,7 @@ void Widget::receiveMessage()
 void Widget::on_pushButton_clicked()
 {
     QString message = ui->lineEdit_2->text();
-    ui->textBrowser->setTextColor(Qt::darkGreen); // Color of message to send is green.
+    ui->textBrowser->setTextColor(Qt::darkGreen);
     ui->textBrowser->append(message);
     serialPort.write(message.toUtf8());
 }
