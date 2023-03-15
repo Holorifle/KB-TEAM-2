@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindow.h" //클라만됨
 #include "ui_mainwindow.h"
 
 #include <QDebug>
