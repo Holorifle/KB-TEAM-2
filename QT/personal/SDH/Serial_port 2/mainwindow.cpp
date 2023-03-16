@@ -23,12 +23,22 @@ Widget::Widget(QWidget *parent)
     ui->comboBox->addItems(stringPorts);
 
 
+
     QList<qint32> baudRates = info.standardBaudRates();  // 보 레이트 확인
     QList<QString> stringBaudRates;
     for(int i = 0 ; i < baudRates.size() ; i++){
         stringBaudRates.append(QString::number(baudRates.at(i))); //기본함수를 사용해 보 레이트 설정
     }
     ui->comboBox_2->addItems(stringBaudRates);
+    //ui->comboBox_2->setCurrentText(stringBaudRates.at(4));
+    QString initialBaudRate = "9600";
+    if (stringBaudRates.contains(initialBaudRate)) {
+        ui->comboBox_2->setCurrentText(initialBaudRate);
+    } else {
+        // 9600 값이 stringBaudRates 목록에 없는 경우 처리할 코드 작성
+        ui->comboBox_2->setCurrentText(stringBaudRates.at(0));
+    }
+
 
     // Data Bits
     ui->comboBox_3->addItem("5");
