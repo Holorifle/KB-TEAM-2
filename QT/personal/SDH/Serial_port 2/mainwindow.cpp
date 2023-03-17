@@ -8,26 +8,37 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
 
-    setFixedSize(width(), height());
+    setFixedSize(width(), height()); //창 사이즈 고정. 혹시 모를 UI 오류 방지
 
 
-    QWidget::setWindowTitle("Serial Port Example");
+    QWidget::setWindowTitle("Serial Port Example"); //창이름
 
 
-    QList<QSerialPortInfo> ports = info.availablePorts();
+    QList<QSerialPortInfo> ports = info.availablePorts();  //QSerial 기본 함수 사용하여 사용 가능한 포트 확인
     QList<QString> stringPorts;
-    for(int i = 0 ; i < ports.size() ; i++){
-        stringPorts.append(ports.at(i).portName());
+    for(int i = 0 ; i < ports.size() ; i++)
+    {
+        stringPorts.append(ports.at(i).portName());  //포트크기확인
     }
     ui->comboBox->addItems(stringPorts);
 
 
-    QList<qint32> baudRates = info.standardBaudRates();
+
+    QList<qint32> baudRates = info.standardBaudRates();  // 보 레이트 확인
     QList<QString> stringBaudRates;
     for(int i = 0 ; i < baudRates.size() ; i++){
-        stringBaudRates.append(QString::number(baudRates.at(i)));
+        stringBaudRates.append(QString::number(baudRates.at(i))); //기본함수를 사용해 보 레이트 설정
     }
     ui->comboBox_2->addItems(stringBaudRates);
+    //ui->comboBox_2->setCurrentText(stringBaudRates.at(4));
+    QString initialBaudRate = "9600";
+    if (stringBaudRates.contains(initialBaudRate)) {
+        ui->comboBox_2->setCurrentText(initialBaudRate);
+    } else {
+        // 9600 값이 stringBaudRates 목록에 없는 경우 처리할 코드 작성
+        ui->comboBox_2->setCurrentText(stringBaudRates.at(0));
+    }
+
 
     // Data Bits
     ui->comboBox_3->addItem("5");
@@ -52,7 +63,7 @@ Widget::Widget(QWidget *parent)
     ui->comboBox_6->addItem("Hardware Flow Control");
     ui->comboBox_6->addItem("Software Flow Control");
 
-}
+}  //각각 일단 기능 이름만 가져와서 콤보박스 만듬
 
 Widget::~Widget()
 {
@@ -60,7 +71,7 @@ Widget::~Widget()
 }
 
 
-void Widget::on_pushButton_2_clicked()
+void Widget::on_pushButton_2_clicked()  //connect 버튼
 {
 
     QString portName = ui->comboBox->currentText();
@@ -70,7 +81,7 @@ void Widget::on_pushButton_2_clicked()
 
     if(!serialPort.isOpen()){
         ui->textBrowser->setTextColor(Qt::red);
-        ui->textBrowser->append("!!!! Something went Wrong !!!!");
+        ui->textBrowser->append("!!!! Something went Wrong !!!!");  //오류시 나오는 말
     }
     else {
 
@@ -168,13 +179,13 @@ void Widget::on_pushButton_clicked()
 }
 
 
-// Button of Disconnect
+// Button of Disconnect 디스커넥트 버튼
 void Widget::on_pushButton_3_clicked()
 {
     serialPort.close();
 }
 
-// Button of Refresh Ports
+// Button of Refresh Ports 새로고침 버튼 처음 실행시 포트 확인하는 부분 다시 실행함
 void Widget::on_pushButton_4_clicked()
 {
     ui->comboBox->clear();
@@ -186,7 +197,7 @@ void Widget::on_pushButton_4_clicked()
     ui->comboBox->addItems(stringPorts);
 }
 
-// Button of Clear
+// Button of Clear 창 클리어 말그대로
 void Widget::on_pushButton_5_clicked()
 {
     ui->textBrowser->clear();
